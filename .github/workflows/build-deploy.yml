@@ -7,9 +7,13 @@ jobs:
     name: "LOG Everything on GitHub Event"
     runs-on: ubuntu-latest
     steps:
-      - name: Logging
+      - name: Get repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Print head git commit message
         run: |
-          echo "${{ github.event.head_commit.message}}"
+          echo "$(git show -s --format=%s)" 
           
   build:
     runs-on: ubuntu-latest
